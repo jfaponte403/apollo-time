@@ -5,6 +5,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import String, ForeignKey
 
 from src.database.Base import Base
+from src.models.UsersModel import UsersModel
 
 
 class LoginModel(Base):
