@@ -4,10 +4,10 @@ from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
-from src.models.RolesModel import RolesModel
+from src.models.RolModel import RolModel
 
 
-class UsersModel(Base):
+class UserModel(Base):
     __tablename__ = "users"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -16,4 +16,3 @@ class UsersModel(Base):
     email: Mapped[str] = mapped_column(String(100))
     phone_number: Mapped[str] = mapped_column(String(15))
 
-    role: Mapped["Role"] = relationship("Role")

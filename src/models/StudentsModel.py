@@ -4,7 +4,8 @@ from sqlalchemy import String, ForeignKey, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
-
+from src.models.DegreesModel import DegreesModel
+from src.models.UserModel import UserModel
 
 class StudentsModel(Base):
     __tablename__ = "students"
@@ -12,6 +13,3 @@ class StudentsModel(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     degree_id: Mapped[str] = mapped_column(ForeignKey("degrees.id"))
     gpa: Mapped[float] = mapped_column(Float)
-
-    user: Mapped["User"] = relationship("User")
-    degree: Mapped["Degree"] = relationship("Degree")

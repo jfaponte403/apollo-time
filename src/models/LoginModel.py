@@ -5,7 +5,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import String, ForeignKey
 
 from src.database.Base import Base
-from src.models.UsersModel import UsersModel
+from src.models.UserModel import UserModel
 
 
 class LoginModel(Base):
@@ -16,4 +16,3 @@ class LoginModel(Base):
     username: Mapped[str] = mapped_column(String(30))
     password: Mapped[str] = mapped_column(String(100))
 
-    user: Mapped["User"] = relationship("User")

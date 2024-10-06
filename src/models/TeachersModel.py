@@ -4,6 +4,7 @@ from sqlalchemy import String, ForeignKey, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
+from src.models.UserModel import UserModel
 
 
 class TeacherModel(Base):
@@ -13,4 +14,3 @@ class TeacherModel(Base):
     salary: Mapped[float] = mapped_column(Float)
     specialization: Mapped[str] = mapped_column(String(100))
 
-    user: Mapped["User"] = relationship("User")

@@ -4,6 +4,7 @@ from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
+from src.models.UserModel import UserModel
 
 
 class AdminsModel(Base):
@@ -11,4 +12,3 @@ class AdminsModel(Base):
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
 
-    user: Mapped["User"] = relationship("User")

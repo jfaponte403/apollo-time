@@ -6,12 +6,12 @@ from src.models.ClassroomsModel import ClassroomsModel
 from src.models.CoursesModel import CoursesModel
 from src.models.DegreesModel import DegreesModel
 from src.models.LoginModel import LoginModel
-from src.models.RolesModel import RolesModel
+from src.models.RolModel import RolModel
 from src.models.SchedulesModel import SchedulesModel
 from src.models.StudentsModel import StudentsModel
 from src.models.SubjectsModel import SubjectsModel
 from src.models.TeachersModel import TeacherModel
-from src.models.UsersModel import UsersModel
+from src.models.UserModel import UserModel
 
 logger = logging.getLogger(__name__)
 

@@ -4,7 +4,7 @@ from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
-
+from src.models.CoursesModel import CoursesModel
 
 class SchedulesModel(Base):
     __tablename__ = "schedules"
@@ -15,4 +15,3 @@ class SchedulesModel(Base):
     end_time: Mapped[str] = mapped_column(String(30))
     day_of_week: Mapped[str] = mapped_column(String(30))
 
-    course: Mapped["Course"] = relationship("Course")
