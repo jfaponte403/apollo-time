@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
-from src.models.RolModel import RolModel
+from src.models.RoleModel import RoleModel
 
 
 class UserModel(Base):

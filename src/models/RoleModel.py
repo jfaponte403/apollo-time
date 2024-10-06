@@ -7,7 +7,7 @@ from sqlalchemy import String
 from src.database.Base import Base
 
 
-class RolModel(Base):
+class RoleModel(Base):
     __tablename__ = "roles"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))

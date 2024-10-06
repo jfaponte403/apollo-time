@@ -10,11 +10,11 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 env_resolver = EnvironmentVariableResolver()
 
-POSTGRES_USER = env_resolver.get_postgres_user()
-POSTGRES_PASSWORD = env_resolver.get_postgres_password()
-POSTGRES_HOST = env_resolver.get_postgres_host()
-POSTGRES_PORT = env_resolver.get_postgres_port()
-POSTGRES_DB = env_resolver.get_postgres_db()
+POSTGRES_USER = EnvironmentVariableResolver().get_postgres_user()
+POSTGRES_PASSWORD = EnvironmentVariableResolver().get_postgres_password()
+POSTGRES_HOST = EnvironmentVariableResolver().get_postgres_host()
+POSTGRES_PORT = EnvironmentVariableResolver().get_postgres_port()
+POSTGRES_DB = EnvironmentVariableResolver().get_postgres_db()
 
 missing_vars = []
 if not POSTGRES_USER:

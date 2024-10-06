@@ -6,7 +6,7 @@ from src.models.ClassroomsModel import ClassroomsModel
 from src.models.CoursesModel import CoursesModel
 from src.models.DegreesModel import DegreesModel
 from src.models.LoginModel import LoginModel
-from src.models.RolModel import RolModel
+from src.models.RoleModel import RoleModel
 from src.models.SchedulesModel import SchedulesModel
 from src.models.StudentsModel import StudentsModel
 from src.models.SubjectsModel import SubjectsModel

@@ -8,19 +8,19 @@ class EnvironmentVariableResolver:
         self._environment_variables = os.environ
 
     def get_postgres_user(self) -> str:
-        return self._environment_variables['POSTGRES_USER']
+        return self._environment_variables.get('POSTGRES_USER', 'postgres')  # Valor predeterminado
 
     def get_postgres_password(self) -> str:
-        return self._environment_variables['POSTGRES_PASSWORD']
+        return self._environment_variables.get('POSTGRES_PASSWORD', '1234')  # Valor predeterminado
 
     def get_postgres_host(self) -> str:
-        return self._environment_variables['POSTGRES_HOST']
+        return self._environment_variables.get('POSTGRES_HOST', 'localhost')  # Valor predeterminado
 
     def get_postgres_port(self) -> str:
-        return self._environment_variables['POSTGRES_PORT']
+        return self._environment_variables.get('POSTGRES_PORT', '5432')  # Valor predeterminado
 
     def get_postgres_db(self) -> str:
-        return self._environment_variables['POSTGRES_DB']
+        return self._environment_variables.get('POSTGRES_DB', 'apollo_time')  # Valor predeterminado
 
     def get_secret_key(self) -> str:
         return self._environment_variables['SECRET_KEY']
