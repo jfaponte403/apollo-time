@@ -4,7 +4,7 @@ from src.database.database import engine
 from src.models.AdminsModel import AdminsModel
 from src.models.ClassroomsModel import ClassroomsModel
 from src.models.CoursesModel import CoursesModel
-from src.models.DegreesModel import DegreesModel
+from src.models.DegreeModel import DegreeModel
 from src.models.LoginModel import LoginModel
 from src.models.RoleModel import RoleModel
 from src.models.SchedulesModel import SchedulesModel
