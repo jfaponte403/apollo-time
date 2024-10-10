@@ -1,11 +1,20 @@
 import logging
 from sqlalchemy.schema import CreateTable
 from sqlalchemy import MetaData, text
-
+from sqlalchemy.orm import sessionmaker
 from src.database.database import engine
+
 
 logger = logging.getLogger(__name__)
 
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db  
+    finally:
+        db.close() 
 class DatabaseManager:
     def __init__(self):
         self.meta = MetaData()
