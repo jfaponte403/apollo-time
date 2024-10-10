@@ -4,7 +4,7 @@ from sqlalchemy import String, ForeignKey, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
-from src.models.DegreesModel import DegreesModel
+from src.models.DegreeModel import DegreeModel
 from src.models.UserModel import UserModel
 
 class StudentsModel(Base):

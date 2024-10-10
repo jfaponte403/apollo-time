@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from src.routes.degree_route import degree
 from src.routes.login_route import login
 from src.routes import subject_route
 

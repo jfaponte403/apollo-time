@@ -5,7 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.Base import Base
 from src.models.ClassroomsModel import ClassroomsModel
-from src.models.DegreesModel import DegreesModel
+from src.models.DegreeModel import DegreeModel
 from src.models.SubjectsModel import SubjectsModel
 from src.models.TeachersModel import TeacherModel
 
