@@ -4,6 +4,6 @@ pydantic==2.9.2
 SQLAlchemy==2.0.35
 python-dotenv==1.0.1
 psycopg2==2.9.9
-starlette==0.38.0
+starlette>=0.37.2,<0.39.0
 PyJWT==2.9.0
 email-validator==2.2.0
