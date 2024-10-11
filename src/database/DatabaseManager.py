@@ -1,9 +1,8 @@
 import logging
-from sqlalchemy.schema import CreateTable
+from sqlalchemy.schema import CreateTable, ForeignKeyConstraint
 from sqlalchemy import MetaData, text
 from sqlalchemy.orm import sessionmaker
 from src.database.database import engine
-
 
 logger = logging.getLogger(__name__)
 
@@ -12,20 +11,35 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 def get_db():
     db = SessionLocal()
     try:
-        yield db  
+        yield db
     finally:
-        db.close() 
+        db.close()
+
 class DatabaseManager:
     def __init__(self):
         self.meta = MetaData()
         self.meta.reflect(bind=engine)
 
+    def _add_on_delete_cascade(self, table):
+        """
+        Modifica las llaves foráneas en una tabla para agregar la cláusula ON DELETE CASCADE.
+        """
+        for fk in table.foreign_key_constraints:
+            # Verificamos si ya tiene alguna acción definida en DELETE
+            if fk.ondelete is None:
+                fk.ondelete = "CASCADE"
+
     def export_to_sql(self, filename='init.sql'):
         with open(filename, 'w') as f:
             for table in self.meta.sorted_tables:
+                # Agregar ON DELETE CASCADE a las llaves foráneas
+                self._add_on_delete_cascade(table)
+
+                # Escribimos la declaración de creación de tabla
                 f.write(str(CreateTable(table)) + ";\n")
                 logger.info(f"Created table statement for {table.name}.")
 
+                # Insertamos los datos actuales
                 with engine.connect() as connection:
                     results = connection.execute(table.select())
                     for row in results:

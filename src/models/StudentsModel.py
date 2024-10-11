@@ -1,3 +1,4 @@
+from __future__ import annotations
 import uuid
 
 from sqlalchemy import String, ForeignKey, Float
@@ -6,10 +7,20 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.database.Base import Base
 from src.models.DegreeModel import DegreeModel
 from src.models.UserModel import UserModel
+from src.schemas.StudentSchema import StudentSchema
+
 
 class StudentsModel(Base):
     __tablename__ = "students"
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
-    degree_id: Mapped[str] = mapped_column(ForeignKey("degrees.id"))
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
+    degree_id: Mapped[str] = mapped_column(ForeignKey("degrees.id", ondelete="CASCADE"))
     gpa: Mapped[float] = mapped_column(Float)
+
+    @staticmethod
+    def create_from_request(request: StudentSchema, user_id: str) -> StudentsModel:
+        return StudentsModel(
+            user_id=str(user_id),
+            degree_id=str(request.degree_id),
+            gpa=request.gpa
+        )

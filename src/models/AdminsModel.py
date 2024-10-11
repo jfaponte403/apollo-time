@@ -10,5 +10,5 @@ from src.models.UserModel import UserModel
 class AdminsModel(Base):
     __tablename__ = "admins"
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
 

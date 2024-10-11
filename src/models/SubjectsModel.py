@@ -12,13 +12,3 @@ class SubjectsModel(Base):
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     name: Mapped[str] = mapped_column(String(100))
-
-
-class SubjectSchema(BaseModel):
-    id: uuid.UUID
-    name: str
-    description: Optional[str] = None
-
-    class Config:
-        orm_mode = True
-

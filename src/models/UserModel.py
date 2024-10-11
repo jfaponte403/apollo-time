@@ -1,10 +1,12 @@
+from __future__ import annotations
 import uuid
 
 from sqlalchemy import ForeignKey, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database.Base import Base
-from src.models.RoleModel import RoleModel
+from src.schemas.StudentSchema import StudentSchema
+from src.schemas.TeacherSchema import TeacherSchema
 
 
 class UserModel(Base):
@@ -16,3 +18,20 @@ class UserModel(Base):
     email: Mapped[str] = mapped_column(String(100))
     phone_number: Mapped[str] = mapped_column(String(15))
 
+    @staticmethod
+    def create_from_teacher_request(request: TeacherSchema, role_id: str) -> UserModel:
+        return UserModel(
+            role_id=str(role_id),
+            name=request.name,
+            email=request.email,
+            phone_number=request.phone_number
+        )
+
+    @staticmethod
+    def create_from_student_request(request: StudentSchema, role_id: str) -> UserModel:
+        return UserModel(
+            role_id=str(role_id),
+            name=request.name,
+            email=request.email,
+            phone_number=request.phone_number
+        )
