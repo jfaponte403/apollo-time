@@ -8,9 +8,9 @@ CREATE TABLE classrooms (
 )
 
 ;
-INSERT INTO classrooms VALUES ('123e4567-e89b-12d3-a456-426614174000', 'Classroom A', 'Lecture', 30);
-INSERT INTO classrooms VALUES ('223e4567-e89b-12d3-a456-426614174001', 'Classroom B', 'Lab', 25);
-INSERT INTO classrooms VALUES ('323e4567-e89b-12d3-a456-426614174002', 'Classroom C', 'Seminar', 20);
+INSERT INTO classrooms VALUES ('C101', 'Room A', 'Lecture', 50);
+INSERT INTO classrooms VALUES ('C102', 'Room B', 'Laboratory', 30);
+INSERT INTO classrooms VALUES ('C103', 'Room C', 'Lecture', 100);
 
 CREATE TABLE degrees (
 	id VARCHAR NOT NULL, 
@@ -19,9 +19,15 @@ CREATE TABLE degrees (
 )
 
 ;
-INSERT INTO degrees VALUES ('423e4567-e89b-12d3-a456-426614174003', 'Computer Science');
-INSERT INTO degrees VALUES ('523e4567-e89b-12d3-a456-426614174004', 'Mathematics');
-INSERT INTO degrees VALUES ('623e4567-e89b-12d3-a456-426614174005', 'Biology');
+INSERT INTO degrees VALUES ('D01', 'Computer Science');
+INSERT INTO degrees VALUES ('D02', 'Mathematics');
+INSERT INTO degrees VALUES ('D03', 'Physics');
+INSERT INTO degrees VALUES ('2e523f82-c01b-47e5-a200-1edf33f760b0', '9 - A');
+INSERT INTO degrees VALUES ('6f7229cd-d435-40e5-9cf5-1cb1a299c076', 'test');
+INSERT INTO degrees VALUES ('a3d540ff-420a-465a-aed7-650beea341af', 'Noveno A');
+INSERT INTO degrees VALUES ('b5250d47-3a9d-49d5-986b-57f05ba19235', 'DECIMO A');
+INSERT INTO degrees VALUES ('90b6f27d-fa77-4efb-9f7c-c37a1edf0796', 'SEPTIMO B');
+INSERT INTO degrees VALUES ('4a5d3e04-3d2d-4999-ae84-fd0dfbabc5e5', 'ONCE A');
 
 CREATE TABLE roles (
 	id VARCHAR NOT NULL, 
@@ -30,9 +36,9 @@ CREATE TABLE roles (
 )
 
 ;
-INSERT INTO roles VALUES ('723e4567-e89b-12d3-a456-426614174006', 'Admin');
-INSERT INTO roles VALUES ('823e4567-e89b-12d3-a456-426614174007', 'Teacher');
-INSERT INTO roles VALUES ('923e4567-e89b-12d3-a456-426614174008', 'Student');
+INSERT INTO roles VALUES ('02', 'teacher');
+INSERT INTO roles VALUES ('01', 'admin');
+INSERT INTO roles VALUES ('03', 'student');
 
 CREATE TABLE subjects (
 	id VARCHAR NOT NULL, 
@@ -41,9 +47,9 @@ CREATE TABLE subjects (
 )
 
 ;
-INSERT INTO subjects VALUES ('a23e4567-e89b-12d3-a456-426614174009', 'Databases');
-INSERT INTO subjects VALUES ('b23e4567-e89b-12d3-a456-426614174010', 'Algorithms');
-INSERT INTO subjects VALUES ('c23e4567-e89b-12d3-a456-426614174011', 'Operating Systems');
+INSERT INTO subjects VALUES ('S101', 'Data Structures');
+INSERT INTO subjects VALUES ('S102', 'Calculus I');
+INSERT INTO subjects VALUES ('S103', 'Quantum Mechanics');
 
 CREATE TABLE users (
 	id VARCHAR NOT NULL, 
@@ -52,25 +58,38 @@ CREATE TABLE users (
 	email VARCHAR(100) NOT NULL, 
 	phone_number VARCHAR(15) NOT NULL, 
 	CONSTRAINT users_pkey PRIMARY KEY (id), 
-	CONSTRAINT users_role_id_fkey FOREIGN KEY(role_id) REFERENCES roles (id)
+	CONSTRAINT users_role_id_fkey FOREIGN KEY(role_id) REFERENCES roles (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO users VALUES ('d23e4567-e89b-12d3-a456-426614174012', '723e4567-e89b-12d3-a456-426614174006', 'Alice Johnson', 'alice@example.com', '555-0101');
-INSERT INTO users VALUES ('e23e4567-e89b-12d3-a456-426614174013', '823e4567-e89b-12d3-a456-426614174007', 'Bob Smith', 'bob@example.com', '555-0102');
-INSERT INTO users VALUES ('f23e4567-e89b-12d3-a456-426614174014', '923e4567-e89b-12d3-a456-426614174008', 'Charlie Brown', 'charlie@example.com', '555-0103');
+INSERT INTO users VALUES ('0c2dcfdf-a979-4b9d-ad43-130e6535080f', '02', 'John Doe', 'johndoe@example.com', '1234567890');
+INSERT INTO users VALUES ('c0a4a752-dab0-482e-9829-c75505564558', '02', 'John1', 'johndoe@example.com', '1234567890');
+INSERT INTO users VALUES ('897ff68f-242f-4dba-8dd9-76c1ab54eb18', '02', 'student', 'student@student.com', '3006049461');
+INSERT INTO users VALUES ('c9f69903-6ee4-44c4-9442-699285247818', '02', 'student', 'student@student.com', '3006049461');
+INSERT INTO users VALUES ('874024e9-7677-4ca7-abe8-d95d502d5150', '02', 'student', 'student@student.com', '3006049461');
+INSERT INTO users VALUES ('234ea457-d731-49c4-a849-bd89f126d77c', '02', 'student', 'student@student.com', '3006049461');
+INSERT INTO users VALUES ('001', '01', 'jhonattan', 'jfaponte@udistrital.com', '3006046460');
+INSERT INTO users VALUES ('4fc14354-7469-470d-a829-20e4050b148e', '02', 'John4', 'johndoe@example.com', '1234567890');
+INSERT INTO users VALUES ('06a235f5-815f-4fbe-8f6d-6efa2e2e41ef', '02', 'John4', 'johndoe@example.com', '1234567890');
+INSERT INTO users VALUES ('54f7f094-96e1-46ef-a338-d18bf8d0eb33', '02', 'John4', 'johndoe@example.com', '1234567890');
+INSERT INTO users VALUES ('177241a5-4a7a-4c4c-a5ff-e58eb793f8f3', '02', 'Alfredo', 'johndoe@example.com', '1234567890');
+INSERT INTO users VALUES ('f0f42660-87c1-473c-a9a7-afa74622d16c', '02', 'Test', 'test@test.com', '12312');
+INSERT INTO users VALUES ('4e57ab07-5a85-493a-a7c4-9e1116b70c52', '02', 'aaa', 'aa@aaa.com', '12342134');
+INSERT INTO users VALUES ('2a2ce2c5-6822-4366-b0c0-41f537af17a0', '02', 'Alfredo2', 'Aldf2@gmail.com', '12312');
+INSERT INTO users VALUES ('ade60991-2e07-4753-8afc-5be518b50960', '02', 'Quiles', 'QuilesF@udistrital.edu.co', '12312');
+INSERT INTO users VALUES ('20fd254c-8de1-4f47-83bb-c39d4bd88cfd', '02', 'student', 'student@student.com', '3006049461');
+INSERT INTO users VALUES ('fabae481-1fe0-4856-b362-6e720e342015', '02', 'Andres', 'Aldf2@gmail.com', '123123');
+INSERT INTO users VALUES ('2789898b-9bea-4cdf-afa1-f0d83f44c776', '02', 'Andres Llinas', 'Andres@gmail.com', '3122233322');
 
 CREATE TABLE admins (
 	id VARCHAR NOT NULL, 
 	user_id VARCHAR NOT NULL, 
 	CONSTRAINT admins_pkey PRIMARY KEY (id), 
-	CONSTRAINT admins_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id)
+	CONSTRAINT admins_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO admins VALUES ('g23e4567-e89b-12d3-a456-426614174015', 'd23e4567-e89b-12d3-a456-426614174012');
-INSERT INTO admins VALUES ('h23e4567-e89b-12d3-a456-426614174016', 'e23e4567-e89b-12d3-a456-426614174013');
-INSERT INTO admins VALUES ('i23e4567-e89b-12d3-a456-426614174017', 'f23e4567-e89b-12d3-a456-426614174014');
+INSERT INTO admins VALUES ('01', '001');
 
 CREATE TABLE login (
 	id VARCHAR NOT NULL, 
@@ -78,13 +97,25 @@ CREATE TABLE login (
 	username VARCHAR(30) NOT NULL, 
 	password VARCHAR(100) NOT NULL, 
 	CONSTRAINT login_pkey PRIMARY KEY (id), 
-	CONSTRAINT login_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id)
+	CONSTRAINT login_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO login VALUES ('j23e4567-e89b-12d3-a456-426614174018', 'd23e4567-e89b-12d3-a456-426614174012', 'admin', '1234');
-INSERT INTO login VALUES ('k23e4567-e89b-12d3-a456-426614174019', 'e23e4567-e89b-12d3-a456-426614174013', 'teacher', '1234');
-INSERT INTO login VALUES ('l23e4567-e89b-12d3-a456-426614174020', 'f23e4567-e89b-12d3-a456-426614174014', 'student', '1234');
+INSERT INTO login VALUES ('2e6587f0-850c-402b-a12a-642370b752e7', '0c2dcfdf-a979-4b9d-ad43-130e6535080f', 'john.johndoe', 'uppwBh3rwh');
+INSERT INTO login VALUES ('3ea9b473-9c81-4c03-addc-f14bc94248d1', 'c0a4a752-dab0-482e-9829-c75505564558', 'john1.johndoe', 'yt36DbroSB');
+INSERT INTO login VALUES ('4de7a320-9b7c-4bb3-bbce-49ca0cdbed1d', '234ea457-d731-49c4-a849-bd89f126d77c', 'student.student', 'nyDl76wIBh');
+INSERT INTO login VALUES ('01', '001', 'admin', '1234');
+INSERT INTO login VALUES ('5365134f-34df-469f-a057-d608d99be438', '4fc14354-7469-470d-a829-20e4050b148e', 'john4.johndoe', '5K9zEb0uT1');
+INSERT INTO login VALUES ('d3e1acf7-2bd8-41c6-9cdd-a0094b86d632', '06a235f5-815f-4fbe-8f6d-6efa2e2e41ef', 'john4.johndoe', 'fWoPSqFTHr');
+INSERT INTO login VALUES ('e855d74c-b734-4a6f-a26e-b90a71753c2c', '54f7f094-96e1-46ef-a338-d18bf8d0eb33', 'john4.johndoe', 'G2QcXYxD7s');
+INSERT INTO login VALUES ('e1617388-d27a-4b42-bcd0-9f31c45c5f63', '177241a5-4a7a-4c4c-a5ff-e58eb793f8f3', 'alfredo.johndoe', 'Y81kAOYum6');
+INSERT INTO login VALUES ('0a16c956-1d03-4941-808e-e0a90f0ca778', 'f0f42660-87c1-473c-a9a7-afa74622d16c', 'test.test', 'G2TY6xJlD8');
+INSERT INTO login VALUES ('7ca6384b-62ad-463e-9a2d-f7af48772e60', '4e57ab07-5a85-493a-a7c4-9e1116b70c52', 'aaa.aa', 'D81meoeT9J');
+INSERT INTO login VALUES ('27607808-c416-4c04-bbb7-23ee5c2f4f11', '2a2ce2c5-6822-4366-b0c0-41f537af17a0', 'alfredo2.Aldf2', 'tDEsAnF1E3');
+INSERT INTO login VALUES ('dcbd7df2-dfbc-4a7d-a0fa-4615328dc813', 'ade60991-2e07-4753-8afc-5be518b50960', 'quiles.QuilesF', 'OaHiQydUBO');
+INSERT INTO login VALUES ('33563a09-3299-4465-bdf7-1df79770e600', '20fd254c-8de1-4f47-83bb-c39d4bd88cfd', 'student.student', 'Vhw3fOVAKJ');
+INSERT INTO login VALUES ('72d00671-d892-474e-9c28-7e7ffc2bf1a3', 'fabae481-1fe0-4856-b362-6e720e342015', 'andres.Aldf2', 'JovamUjxka');
+INSERT INTO login VALUES ('ae7a353e-e7ee-413c-9803-f438d1beadd4', '2789898b-9bea-4cdf-afa1-f0d83f44c776', 'andres.Andres', '2t4hdxKL6Q');
 
 CREATE TABLE students (
 	id VARCHAR NOT NULL, 
@@ -92,14 +123,17 @@ CREATE TABLE students (
 	degree_id VARCHAR NOT NULL, 
 	gpa DOUBLE PRECISION NOT NULL, 
 	CONSTRAINT students_pkey PRIMARY KEY (id), 
-	CONSTRAINT students_degree_id_fkey FOREIGN KEY(degree_id) REFERENCES degrees (id), 
-	CONSTRAINT students_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id)
+	CONSTRAINT students_degree_id_fkey FOREIGN KEY(degree_id) REFERENCES degrees (id) ON DELETE CASCADE, 
+	CONSTRAINT students_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO students VALUES ('m23e4567-e89b-12d3-a456-426614174021', 'f23e4567-e89b-12d3-a456-426614174014', '423e4567-e89b-12d3-a456-426614174003', 3.5);
-INSERT INTO students VALUES ('n23e4567-e89b-12d3-a456-426614174022', 'd23e4567-e89b-12d3-a456-426614174012', '523e4567-e89b-12d3-a456-426614174004', 3.8);
-INSERT INTO students VALUES ('o23e4567-e89b-12d3-a456-426614174023', 'e23e4567-e89b-12d3-a456-426614174013', '623e4567-e89b-12d3-a456-426614174005', 3.2);
+INSERT INTO students VALUES ('ST01', '0c2dcfdf-a979-4b9d-ad43-130e6535080f', 'D01', 3.8);
+INSERT INTO students VALUES ('ST02', 'c0a4a752-dab0-482e-9829-c75505564558', 'D02', 3.6);
+INSERT INTO students VALUES ('7bebebf5-d59c-45e6-a4bb-1ead52bebd63', '234ea457-d731-49c4-a849-bd89f126d77c', 'D02', 45.0);
+INSERT INTO students VALUES ('19a55670-7fc5-4e1d-a2a7-103d2dd21290', '20fd254c-8de1-4f47-83bb-c39d4bd88cfd', 'D02', 45.0);
+INSERT INTO students VALUES ('2e491344-3599-4c3b-860e-364c3f52d066', 'fabae481-1fe0-4856-b362-6e720e342015', '6f7229cd-d435-40e5-9cf5-1cb1a299c076', 32.0);
+INSERT INTO students VALUES ('e6d9949c-de3c-4339-b4e0-d5881fa7af17', '2789898b-9bea-4cdf-afa1-f0d83f44c776', '90b6f27d-fa77-4efb-9f7c-c37a1edf0796', 50.0);
 
 CREATE TABLE teachers (
 	id VARCHAR NOT NULL, 
@@ -107,13 +141,18 @@ CREATE TABLE teachers (
 	salary DOUBLE PRECISION NOT NULL, 
 	specialization VARCHAR(100) NOT NULL, 
 	CONSTRAINT teachers_pkey PRIMARY KEY (id), 
-	CONSTRAINT teachers_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id)
+	CONSTRAINT teachers_user_id_fkey FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO teachers VALUES ('p23e4567-e89b-12d3-a456-426614174024', 'e23e4567-e89b-12d3-a456-426614174013', 60000.0, 'Computer Science');
-INSERT INTO teachers VALUES ('q23e4567-e89b-12d3-a456-426614174025', 'd23e4567-e89b-12d3-a456-426614174012', 65000.0, 'Mathematics');
-INSERT INTO teachers VALUES ('r23e4567-e89b-12d3-a456-426614174026', 'f23e4567-e89b-12d3-a456-426614174014', 55000.0, 'Biology');
+INSERT INTO teachers VALUES ('09a11b97-48bf-44e8-bccc-fb7981ee92e4', '4fc14354-7469-470d-a829-20e4050b148e', 12000.0, 'math');
+INSERT INTO teachers VALUES ('71400c2c-51fe-4b16-965a-498357e227cf', '06a235f5-815f-4fbe-8f6d-6efa2e2e41ef', 12000.0, 'math');
+INSERT INTO teachers VALUES ('dcb8454d-d704-4c0a-99c3-2a4d7cec6431', '54f7f094-96e1-46ef-a338-d18bf8d0eb33', 12000.0, 'math');
+INSERT INTO teachers VALUES ('54d92b70-6ec6-4f72-86ac-11e5b45a0ad2', '177241a5-4a7a-4c4c-a5ff-e58eb793f8f3', 12000.0, 'math');
+INSERT INTO teachers VALUES ('5555b387-ae55-4141-804a-426320abe152', 'f0f42660-87c1-473c-a9a7-afa74622d16c', 123123.0, 'asdsad');
+INSERT INTO teachers VALUES ('fbe09f4c-7fed-47fc-aada-4e4c08bfe580', '4e57ab07-5a85-493a-a7c4-9e1116b70c52', 123.0, 'aaaa');
+INSERT INTO teachers VALUES ('694708ba-bfd0-403e-b1c4-960e519b7eb5', '2a2ce2c5-6822-4366-b0c0-41f537af17a0', 12123213.0, 'assdsd');
+INSERT INTO teachers VALUES ('1f61305c-384b-4ea9-aa83-ee16a1612de2', 'ade60991-2e07-4753-8afc-5be518b50960', 123412.0, 'asdasd');
 
 CREATE TABLE courses (
 	id VARCHAR NOT NULL, 
@@ -122,16 +161,13 @@ CREATE TABLE courses (
 	degrees_id VARCHAR NOT NULL, 
 	teacher_id VARCHAR NOT NULL, 
 	CONSTRAINT courses_pkey PRIMARY KEY (id), 
-	CONSTRAINT courses_classroom_id_fkey FOREIGN KEY(classroom_id) REFERENCES classrooms (id), 
-	CONSTRAINT courses_degrees_id_fkey FOREIGN KEY(degrees_id) REFERENCES degrees (id), 
-	CONSTRAINT courses_subject_id_fkey FOREIGN KEY(subject_id) REFERENCES subjects (id), 
-	CONSTRAINT courses_teacher_id_fkey FOREIGN KEY(teacher_id) REFERENCES teachers (id)
+	CONSTRAINT courses_classroom_id_fkey FOREIGN KEY(classroom_id) REFERENCES classrooms (id) ON DELETE CASCADE, 
+	CONSTRAINT courses_degrees_id_fkey FOREIGN KEY(degrees_id) REFERENCES degrees (id) ON DELETE CASCADE, 
+	CONSTRAINT courses_subject_id_fkey FOREIGN KEY(subject_id) REFERENCES subjects (id) ON DELETE CASCADE, 
+	CONSTRAINT courses_teacher_id_fkey FOREIGN KEY(teacher_id) REFERENCES teachers (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO courses VALUES ('s23e4567-e89b-12d3-a456-426614174027', '123e4567-e89b-12d3-a456-426614174000', 'a23e4567-e89b-12d3-a456-426614174009', '423e4567-e89b-12d3-a456-426614174003', 'p23e4567-e89b-12d3-a456-426614174024');
-INSERT INTO courses VALUES ('t23e4567-e89b-12d3-a456-426614174028', '223e4567-e89b-12d3-a456-426614174001', 'b23e4567-e89b-12d3-a456-426614174010', '523e4567-e89b-12d3-a456-426614174004', 'q23e4567-e89b-12d3-a456-426614174025');
-INSERT INTO courses VALUES ('u23e4567-e89b-12d3-a456-426614174029', '323e4567-e89b-12d3-a456-426614174002', 'c23e4567-e89b-12d3-a456-426614174011', '623e4567-e89b-12d3-a456-426614174005', 'r23e4567-e89b-12d3-a456-426614174026');
 
 CREATE TABLE schedules (
 	id VARCHAR NOT NULL, 
@@ -140,10 +176,7 @@ CREATE TABLE schedules (
 	end_time VARCHAR(30) NOT NULL, 
 	day_of_week VARCHAR(30) NOT NULL, 
 	CONSTRAINT schedules_pkey PRIMARY KEY (id), 
-	CONSTRAINT schedules_course_id_fkey FOREIGN KEY(course_id) REFERENCES courses (id)
+	CONSTRAINT schedules_course_id_fkey FOREIGN KEY(course_id) REFERENCES courses (id) ON DELETE CASCADE
 )
 
 ;
-INSERT INTO schedules VALUES ('v23e4567-e89b-12d3-a456-426614174030', 's23e4567-e89b-12d3-a456-426614174027', '09:00', '10:30', 'Monday');
-INSERT INTO schedules VALUES ('w23e4567-e89b-12d3-a456-426614174031', 't23e4567-e89b-12d3-a456-426614174028', '11:00', '12:30', 'Wednesday');
-INSERT INTO schedules VALUES ('x23e4567-e89b-12d3-a456-426614174032', 'u23e4567-e89b-12d3-a456-426614174029', '13:00', '14:30', 'Friday');

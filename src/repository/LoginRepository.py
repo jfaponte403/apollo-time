@@ -7,19 +7,18 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from src.database.database import engine
 from src.models.LoginModel import LoginModel
-from src.models.PostLoginModel import PostLoginModel
-
-# Set up logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+from src.schemas.LoginSchema import LoginSchema
 
 class LoginRepository:
-    @staticmethod
-    def find_by_request(request: PostLoginModel) -> Optional[LoginModel]:
+    def __init__(self):
+        self.logger = logging.getLogger(self.__class__.__name__)
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+    def find_by_request(self, request: LoginSchema) -> Optional[LoginModel]:
         try:
             username = str(request.username)
             password = str(request.password)
-            logger.info("Searching for login for username: %s", username)
+            self.logger.info("Searching for login for username: %s", username)
 
             with Session(engine) as session:
                 stmt = select(LoginModel).where(
@@ -30,16 +29,35 @@ class LoginRepository:
                 login = session.execute(stmt).scalars().first()
 
                 if login is None:
-                    logger.warning("Login not found for username: %s", username)
+                    self.logger.warning("Login not found for username: %s", username)
                     return None
 
-                logger.info("Login found for username: %s", username)
+                self.logger.info("Login found for username: %s", username)
                 return login
 
         except SQLAlchemyError as e:
-            logger.error("Database error occurred: %s", e)
+            self.logger.error("Database error occurred: %s", e)
             return None
 
         except Exception as e:
-            logger.error("An unexpected error occurred: %s", e)
+            self.logger.error("An unexpected error occurred: %s", e)
             return None
+
+    def persist(self, entity: LoginModel) -> bool:
+        try:
+            self.logger.info("Persisting degree entity: %s", entity)
+
+            with Session(engine) as session:
+                session.add(entity)
+                session.commit()
+
+            self.logger.info("Degree entity persisted successfully: %s", entity)
+            return True
+
+        except SQLAlchemyError as e:
+            self.logger.error("Database error occurred while persisting the degree: %s", e)
+            return False
+
+        except Exception as e:
+            self.logger.error("An unexpected error occurred while persisting the degree: %s", e)
+            return False

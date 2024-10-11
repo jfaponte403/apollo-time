@@ -5,7 +5,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database.Base import Base
-from src.models.PostDegreeModel import PostDegreeModel
+from src.schemas.DegreeSchema import DegreeSchema
 
 
 class DegreeModel(Base):
@@ -15,5 +15,11 @@ class DegreeModel(Base):
     name: Mapped[str] = mapped_column(String(100))
 
     @staticmethod
-    def create_from_request(request: PostDegreeModel) -> DegreeModel:
+    def create_from_request(request: DegreeSchema) -> DegreeModel:
         return DegreeModel(name=request.name)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name
+        }

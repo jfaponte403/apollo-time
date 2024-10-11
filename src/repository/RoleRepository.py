@@ -14,6 +14,45 @@ logger = logging.getLogger(__name__)
 
 
 class RoleRepository:
+    @staticmethod
+    def get_student_id() -> Optional[str]:
+        try:
+            logger.info("Role finding: ")
+
+            with Session(engine) as session:
+                stmt = select(RoleModel).where(RoleModel.rol == "student")
+
+                role = session.execute(stmt).scalars().first()
+
+                if role is None:
+                    logger.warning("Role not found for user student")
+                    return None
+
+                logger.info("Role found: %s", role.rol)
+                return str(role.id)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def get_teacher_id() -> Optional[str]:
+        try:
+            logger.info("Role finding: ")
+
+            with Session(engine) as session:
+                stmt = select(RoleModel).where(RoleModel.rol == "teacher")
+
+                role = session.execute(stmt).scalars().first()
+
+                if role is None:
+                    logger.warning("Role not found for user teacher")
+                    return None
+
+                logger.info("Role found: %s", role.rol)
+                return str(role.id)
+
+        except Exception as e:
+            raise e
 
     @staticmethod
     def find_role_by_user_id(user_id: str) -> Optional[RoleModel]:

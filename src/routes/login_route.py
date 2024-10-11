@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from fastapi import APIRouter, HTTPException
 
-from src.models.PostLoginModel import PostLoginModel
+from src.schemas.LoginSchema import LoginSchema
 from src.repository.LoginRepository import LoginRepository
 from src.repository.RoleRepository import RoleRepository
 from src.utils.EnvironmentVariableResolver import EnvironmentVariableResolver
@@ -21,11 +21,11 @@ def get_login():
     return "Login"
 
 @login.post("/", status_code=200, response_model=dict)
-def login_user(request: PostLoginModel):
+def login_user(request: LoginSchema):
     logger.info("POST / - Login attempt for username: %s", request.username)
 
     try:
-        login_entity = LoginRepository.find_by_request(request)
+        login_entity = LoginRepository().find_by_request(request)
 
         if login_entity is None:
             logger.warning("Login failed: Invalid username or password for user: %s", request.username)

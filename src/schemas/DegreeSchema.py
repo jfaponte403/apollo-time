@@ -1,5 +1,5 @@
 from pydantic import BaseModel, constr
 
 
-class PostDegreeModel(BaseModel):
+class DegreeSchema(BaseModel):
     name: constr(min_length=1)
