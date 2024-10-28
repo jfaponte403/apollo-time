@@ -17,6 +17,33 @@ class TeacherRepository:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
+    def update(self, entity: TeacherModel) -> bool:
+        try:
+            self.logger.info("Updating teacher entity: %s", entity)
+
+            with Session(engine) as session:
+                existing_teacher = session.get(TeacherModel, entity.id)
+                if existing_teacher is None:
+                    self.logger.error("Teacher with ID %s not found", entity.id)
+                    return False
+
+                existing_teacher.user_id = entity.user_id
+                existing_teacher.salary = entity.salary
+                existing_teacher.specialization = entity.specialization
+
+                session.commit()
+
+            self.logger.info("Teacher entity updated successfully: %s", entity)
+            return True
+
+        except SQLAlchemyError as e:
+            self.logger.error("Database error occurred while updating the teacher: %s", e)
+            return False
+
+        except Exception as e:
+            self.logger.error("An unexpected error occurred while updating the teacher: %s", e)
+            return False
+
     def find_all(self) -> Optional[List[dict]]:
         try:
             teachers = []

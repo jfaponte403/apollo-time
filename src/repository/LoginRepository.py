@@ -14,6 +14,57 @@ class LoginRepository:
         self.logger = logging.getLogger(self.__class__.__name__)
         logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
+    def update(self, entity: LoginModel) -> bool:
+        try:
+            self.logger.info("Updating LoginModel entity: %s", entity)
+
+            with Session(engine) as session:
+                existing_login = session.get(LoginModel, entity.id)
+                if existing_login is None:
+                    self.logger.error("Login with ID %s not found", entity.id)
+                    return False
+
+                existing_login.user_id = entity.user_id
+                existing_login.username = entity.username
+                existing_login.password = entity.password
+
+                session.commit()
+
+            self.logger.info("LoginModel entity updated successfully: %s", entity)
+            return True
+
+        except SQLAlchemyError as e:
+            self.logger.error("Database error occurred while updating the login: %s", e)
+            return False
+
+        except Exception as e:
+            self.logger.error("An unexpected error occurred while updating the login: %s", e)
+            return False
+
+    def find_by_user_id(self, user_id: str) -> Optional[LoginModel]:
+        try:
+            self.logger.info("Searching for login for user_id: %s", user_id)
+
+            with Session(engine) as session:
+                stmt = select(LoginModel).where(LoginModel.user_id == user_id)
+
+                login = session.execute(stmt).scalars().first()
+
+                if login is None:
+                    self.logger.warning("Login not found for user_id: %s", user_id)
+                    return None
+
+                self.logger.info("Login found for user_id: %s", user_id)
+                return login
+
+        except SQLAlchemyError as e:
+            self.logger.error("Database error occurred: %s", e)
+            return None
+
+        except Exception as e:
+            self.logger.error("An unexpected error occurred: %s", e)
+            return None
+
     def find_by_request(self, request: LoginSchema) -> Optional[LoginModel]:
         try:
             username = str(request.username)
