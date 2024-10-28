@@ -4,7 +4,9 @@ from sqlalchemy.orm import Session
 
 from src.database.database import engine
 from src.models.LoginModel import LoginModel
+from src.repository.LoginRepository import LoginRepository
 from src.repository.UserRepository import UserRepository
+from src.schemas.TeacherModifySchema import TeacherModifySchema
 from src.schemas.TeacherSchema import TeacherSchema
 from src.models.TeachersModel import TeacherModel
 from src.models.UserModel import UserModel
@@ -89,6 +91,59 @@ def delete_teacher(id: str):
         raise http_exc
     except Exception as e:
         logger.error(f"Error deleting teacher with ID {id}: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+
+
+@teacher.put("/{id}", status_code=200, response_model=dict)
+def modify_teacher(id: str, request: TeacherModifySchema):
+    logger.info(f"Received request to modify teacher with ID: {id}")
+
+    try:
+        teacher_repository = TeacherRepository()
+        user_repository = UserRepository()
+        login_repository = LoginRepository()
+
+        teacher_entity = teacher_repository.find_by_id(teacher_id=id)
+        if not teacher_entity:
+            raise HTTPException(status_code=404, detail="Teacher not found")
+
+        user_entity = user_repository.find_by_id(user_id=str(teacher_entity.user_id))
+        if not user_entity:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        login_entity = login_repository.find_by_user_id(user_id=str(teacher_entity.user_id))
+        if not login_entity:
+            raise HTTPException(status_code=404, detail="Login not found")
+
+        if request.salary is not None:
+            teacher_entity.salary = request.salary
+        if request.specialization is not None:
+            teacher_entity.specialization = request.specialization
+
+        if request.name is not None:
+            user_entity.name = request.name
+        if request.email is not None:
+            user_entity.email = request.email
+        if request.phone_number is not None:
+            user_entity.phone_number = request.phone_number
+
+        if request.username is not None:
+            login_entity.username = request.username
+        if request.password is not None:
+            login_entity.password = request.password
+
+        teacher_repository.update(teacher_entity)
+        user_repository.update(user_entity)
+        login_repository.update(login_entity)
+
+        logger.info(f"Teacher with ID {id} updated successfully.")
+        return {"message": "Teacher updated successfully.", "id": id}
+
+    except HTTPException as e:
+        raise e
+
+    except Exception as e:
+        logger.error(f"Error modifying teacher with ID {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
 

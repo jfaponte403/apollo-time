@@ -4,8 +4,8 @@ import uuid
 
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-from sqlalchemy import String, ForeignKey
-
+from sqlalchemy import String, ForeignKey, Boolean, DateTime
+from sqlalchemy.sql import func
 from src.models.UserModel import UserModel
 
 from src.database.Base import Base
@@ -20,6 +20,8 @@ class LoginModel(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     username: Mapped[str] = mapped_column(String(30))
     password: Mapped[str] = mapped_column(String(100))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
 
     @staticmethod
     def create_from_teacher_request(request: TeacherSchema, user_id: str) -> LoginModel:
