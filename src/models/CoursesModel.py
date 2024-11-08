@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uuid
 
 from sqlalchemy import String, ForeignKey, Boolean, DateTime
@@ -8,6 +10,8 @@ from src.models.ClassroomsModel import ClassroomsModel
 from src.models.DegreeModel import DegreeModel
 from src.models.SubjectsModel import SubjectsModel
 from src.models.TeachersModel import TeacherModel
+from src.schemas.CourseSchema import CourseSchema
+
 
 class CoursesModel(Base):
     __tablename__ = "courses"
@@ -19,4 +23,15 @@ class CoursesModel(Base):
     teacher_id: Mapped[str] = mapped_column(ForeignKey("teachers.id", ondelete="CASCADE"))
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
+    name: Mapped[str] = mapped_column(String, nullable=False)
+
+    @staticmethod
+    def create_from_request(request: CourseSchema) -> CoursesModel:
+        return CoursesModel(
+            classroom_id=str(request.classroom_id),
+            subject_id=str(request.subject_id),
+            degrees_id=str(request.degrees_id),
+            teacher_id=str(request.teacher_id),
+            name=str(request.name),
+        )
 

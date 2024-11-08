@@ -60,7 +60,9 @@ class TeacherRepository:
                         "teacher_id": teacher.id,
                         "user_id": user.id,
                         "user_name": user.name,
-                        "specialization": teacher.specialization
+                        "specialization": teacher.specialization,
+                        "is_active": teacher.is_active,
+                        "created_at": teacher.created_at,
                     })
 
             return teachers if teachers else None
@@ -102,4 +104,28 @@ class TeacherRepository:
         except Exception as e:
             self.logger.error("An unexpected error occurred while fetching the teacher: %s", e)
             raise e
+
+    def delete(self, teacher_id: str) -> bool:
+        try:
+            self.logger.info("Soft deleting teacher with ID: %s", teacher_id)
+
+            with Session(engine) as session:
+                teacher_entity = session.get(TeacherModel, teacher_id)
+                if not teacher_entity:
+                    self.logger.warning("Teacher with ID %s not found for soft delete.", teacher_id)
+                    return False
+
+                teacher_entity.is_active = False
+                session.commit()
+
+            self.logger.info("Teacher with ID %s has been soft deleted.", teacher_id)
+            return True
+
+        except SQLAlchemyError as e:
+            self.logger.error("Database error occurred while soft deleting the teacher: %s", e)
+            return False
+
+        except Exception as e:
+            self.logger.error("An unexpected error occurred while soft deleting the teacher: %s", e)
+            return False
 

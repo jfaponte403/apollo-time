@@ -1,5 +1,5 @@
 import logging
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
 from src.database.database import engine
@@ -72,27 +72,28 @@ def post_teacher(request: TeacherSchema):
         logger.error(f"Error creating teacher: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
-
-@teacher.delete("/{id}", status_code=200, response_model=dict)
+@teacher.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT, response_model=None)
 def delete_teacher(id: str):
     logger.info(f"Received request to delete teacher with ID: {id}")
 
     try:
-        teacher_entity = TeacherRepository().find_by_id(teacher_id=id)
+        response = TeacherRepository().delete(str(id))
 
-        teacher_entity = UserRepository().delete_teacher_by_id(teacher_id=str(teacher_entity.user_id))
+        if not response:
+            logger.warning(f"Teacher with ID {id} not found or already inactive.")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Teacher with the specified ID does not exist or is already inactive."
+            )
 
-        if not teacher_entity:
-            raise HTTPException(status_code=404, detail=f"Teacher with ID {id} not found")
-
-        return {"message": "Teacher delete"}
+        logger.info(f"Teacher with ID {id} soft deleted successfully.")
+        return
 
     except HTTPException as http_exc:
         raise http_exc
     except Exception as e:
         logger.error(f"Error deleting teacher with ID {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
-
 
 @teacher.put("/{id}", status_code=200, response_model=dict)
 def modify_teacher(id: str, request: TeacherModifySchema):
@@ -115,21 +116,25 @@ def modify_teacher(id: str, request: TeacherModifySchema):
         if not login_entity:
             raise HTTPException(status_code=404, detail="Login not found")
 
-        if request.salary is not None:
+        if request.salary is not None and request.salary is not "":
             teacher_entity.salary = request.salary
-        if request.specialization is not None:
+
+        if request.specialization is not None and request.specialization is not "":
             teacher_entity.specialization = request.specialization
 
-        if request.name is not None:
+        if request.name is not None and request.name is not "":
             user_entity.name = request.name
-        if request.email is not None:
+
+        if request.email is not None and request.email is not "":
             user_entity.email = request.email
-        if request.phone_number is not None:
+
+        if request.phone_number is not None and request.phone_number is not "":
             user_entity.phone_number = request.phone_number
 
-        if request.username is not None:
+        if request.username is not None and request.username is not "":
             login_entity.username = request.username
-        if request.password is not None:
+
+        if request.password is not None and request.password is not "":
             login_entity.password = request.password
 
         teacher_repository.update(teacher_entity)

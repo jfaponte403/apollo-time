@@ -71,7 +71,7 @@ class DatabaseManager:
 
 # Usage
 if __name__ == '__main__':
-    request = 1
+    request = 0
 
     if request == 0:
         DatabaseManager().export_to_sql()
