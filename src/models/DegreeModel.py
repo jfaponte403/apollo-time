@@ -21,8 +21,10 @@ class DegreeModel(Base):
     def create_from_request(request: DegreeSchema) -> DegreeModel:
         return DegreeModel(name=request.name)
 
-    def to_dict(self) -> dict:
+    def to_http_response(self) -> dict:
         return {
             "id": self.id,
-            "name": self.name
+            "name": self.name,
+            "create_at": self.created_at,
+            "is_active": self.is_active
         }

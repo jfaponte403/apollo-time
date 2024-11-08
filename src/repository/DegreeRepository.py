@@ -66,7 +66,7 @@ class DegreeRepository:
                 result = session.execute(stmt).scalars().all()
 
                 for degree in result:
-                    degrees.append(degree.to_dict())
+                    degrees.append(degree.to_http_response())
 
             return degrees
 
@@ -98,6 +98,31 @@ class DegreeRepository:
         except Exception as e:
             self.logger.error("An unexpected error occurred while finding the degree by ID: %s", e)
             return None
+
+    def update(self, entity: DegreeModel) -> bool:
+        try:
+            self.logger.info("Updating degree entity: %s", entity)
+
+            with Session(engine) as session:
+                existing_degree = session.get(DegreeModel, entity.id)
+                if existing_degree is None:
+                    self.logger.error("Degree with ID %s not found", entity.id)
+                    return False
+
+                existing_degree.name = entity.name
+
+                session.commit()
+
+            self.logger.info("Degree entity updated successfully: %s", entity)
+            return True
+
+        except SQLAlchemyError as e:
+            self.logger.error("Database error occurred while updating the degree: %s", e)
+            return False
+
+        except Exception as e:
+            self.logger.error("An unexpected error occurred while updating the degree: %s", e)
+            return False
 
 
 
