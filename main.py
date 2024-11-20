@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from src.routes.classroom_route import classroom_router
 from src.routes.course_route import course
 from src.routes.degree_route import degree
 from src.routes.login_route import login
@@ -26,3 +27,4 @@ app.include_router(teacher, prefix="/teacher")
 app.include_router(student, prefix="/student")
 app.include_router(course, prefix="/course")
 app.include_router(user, prefix="/user")
+app.include_router(classroom_router, prefix="/classroom")

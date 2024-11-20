@@ -34,7 +34,6 @@ def get_courses():
         logger.error(f"Error fetching courses: {str(e)}", exc_info=True)
         raise e
 
-
 @course.post("/", status_code=status.HTTP_201_CREATED)
 def post_course(request: CourseSchema):
     try:
@@ -52,7 +51,7 @@ def post_course(request: CourseSchema):
 
     except Exception as e:
         logger.error(f"Error fetching courses: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise e
 
 @course.delete("/{id}")
 def delete_course(id: str):
