@@ -62,7 +62,7 @@ class TeacherRepository:
                         "user_name": user.name,
                         "specialization": teacher.specialization,
                         "is_active": teacher.is_active,
-                        "created_at": teacher.created_at,
+                        "created_at": str(teacher.created_at),
                     })
 
             return teachers if teachers else None
