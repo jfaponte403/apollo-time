@@ -35,3 +35,14 @@ class CoursesModel(Base):
             name=str(request.name),
         )
 
+    def to_http_response(self) -> dict:
+        return {
+            "id": self.id,
+            "classroom_id": self.classroom_id,
+            "subject_id": self.subject_id,
+            "degrees_id": self.degrees_id,
+            "teacher_id": self.teacher_id,
+            "name": self.name,
+            "is_active": self.is_active,
+            "created_at": str(self.created_at),
+        }

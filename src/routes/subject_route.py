@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from typing import List
 from src.repository.SubjectRepository import SubjectRepository
 from src.database.DatabaseManager import get_db
 from src.models.SubjectsModel import SubjectsModel
@@ -9,10 +9,16 @@ from src.schemas.SubjectSchema import SubjectSchema
 subject = APIRouter()
 
 
-@subject.get("/", response_model=List[SubjectSchema])
+@subject.get("/")
 def get_all_subjects(db: Session = Depends(get_db)):
-    subjects = SubjectRepository().get_all_subjects(db)
-    return subjects
+    subjects_query = SubjectRepository().get_all_subjects(db)
+
+    subjects_list = [subject_entity.to_dict() for subject_entity in subjects_query]
+
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={"subjects": subjects_list}
+    )
 
 @subject.get("/{subject_id}", response_model=SubjectSchema)
 def get_subject(subject_id: str, db: Session = Depends(get_db)):

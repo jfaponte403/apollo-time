@@ -2,6 +2,8 @@ import logging
 from fastapi import APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
+from fastapi.responses import JSONResponse
+
 from src.database.database import engine
 from src.models.LoginModel import LoginModel
 from src.repository.LoginRepository import LoginRepository
@@ -19,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 teacher = APIRouter()
 
-@teacher.get("/", status_code=200, response_model=list)
+@teacher.get("/")
 def get_teachers():
     logger.info("Received request to fetch all teachers.")
     try:
@@ -30,7 +32,10 @@ def get_teachers():
             raise HTTPException(status_code=404, detail="No teachers found.")
 
         logger.info(f"Fetched {len(teachers)} teachers from the database.")
-        return teachers
+        return JSONResponse(
+            status_code=200,
+            content={"teachers": teachers}
+        )
     except Exception as e:
         logger.error(f"Error fetching teachers: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")

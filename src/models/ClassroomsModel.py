@@ -15,3 +15,13 @@ class ClassroomsModel(Base):
     capacity: Mapped[int] = mapped_column()
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "type": self.type,
+            "capacity": self.capacity,
+            "is_active": self.is_active,
+            "created_at": str(self.created_at)
+        }

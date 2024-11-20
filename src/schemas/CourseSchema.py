@@ -1,9 +1,9 @@
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel
 
 
 class CourseSchema(BaseModel):
-    classroom_id: UUID4
-    subject_id: UUID4
-    degrees_id: UUID4
-    teacher_id: UUID4
+    classroom_id: str
+    subject_id: str
+    degrees_id: str
+    teacher_id: str
     name: str
