@@ -5,9 +5,7 @@ from pydantic import BaseModel
 
 
 class SubjectSchema(BaseModel):
-    id: uuid.UUID
     name: str
-    description: Optional[str] = None
-
+    is_active: Optional[bool] = None
     class Config:
         orm_mode = True
