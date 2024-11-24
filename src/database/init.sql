@@ -32,8 +32,11 @@ INSERT INTO degrees VALUES ('65797850-6692-48d7-9927-65e42d5cfc37', 'test', Fals
 INSERT INTO degrees VALUES ('6fcc4bb9-e45e-40d8-8ab3-4e84e6469eb5', 'Millox', False, 2024-10-29 09:23:10.083478);
 INSERT INTO degrees VALUES ('479a5220-7422-48ab-9bde-10d15de05572', 'Once A1', False, 2024-10-29 09:57:26.144818);
 INSERT INTO degrees VALUES ('4f464461-74f8-4010-80e8-d022a9b6755d', 'Once 2', False, 2024-10-29 08:28:08.973214);
-INSERT INTO degrees VALUES ('1ba86267-be95-4973-b613-c8b650b1da06', 'Millitos', True, 2024-10-29 09:59:01.491801);
 INSERT INTO degrees VALUES ('8753472e-7d6b-4942-9c2a-448fda8f633f', 'Upload', False, 2024-10-29 10:15:17.692993);
+INSERT INTO degrees VALUES ('1ba86267-be95-4973-b613-c8b650b1da06', 'Millito', True, 2024-10-29 09:59:01.491801);
+INSERT INTO degrees VALUES ('597700f9-d52d-40d4-b65a-8a8a7ec15373', 'Santa f', True, 2024-11-19 17:58:47.568160);
+INSERT INTO degrees VALUES ('2831d401-8b34-4a86-820b-e3ecd8023a03', 'NOVENO A1', True, 2024-11-19 18:05:43.061006);
+INSERT INTO degrees VALUES ('cd8dc055-e880-4456-9dfe-2e0f25f55978', 'DECIMO B', False, 2024-11-19 18:07:20.210110);
 
 CREATE TABLE roles (
 	id VARCHAR NOT NULL, 
@@ -78,11 +81,13 @@ CREATE TABLE users (
 INSERT INTO users VALUES ('admin-user-id', '01', 'Admin User', 'admin@example.com', '1234567890', True, 2024-10-29 03:09:23.094453);
 INSERT INTO users VALUES ('2d9f2718-9209-49c1-bd7b-641c05e9b73d', '02', 'Los bosteros', 'son@asi.com', '312312', True, 2024-10-30 11:04:11.143144);
 INSERT INTO users VALUES ('teacher-user-id', '02', 'aaaaa', '12312@gmail.com', '1234567891', True, 2024-10-29 03:09:23.233425);
-INSERT INTO users VALUES ('9b7d7691-2e1f-4401-9ef3-2c7ef512cb41', '02', 'Yuliana', '', '3123123', True, 2024-10-30 11:19:42.114507);
 INSERT INTO users VALUES ('3b3a7e2f-c816-443b-b8d2-135497b80576', '02', 'MIguel', 'quiles@quiles.com', '312', True, 2024-10-30 11:31:38.295062);
 INSERT INTO users VALUES ('b6c96410-bb2a-4efa-83bb-5b7af9e450c2', '02', 'Porque se fue?', 'porque@murio.com', '123123', True, 2024-10-30 11:45:30.850107);
 INSERT INTO users VALUES ('student-user-id', '03', 'admin', 'student@example.com', '1234567892', True, 2024-10-29 03:09:23.383171);
-INSERT INTO users VALUES ('6d1b21b3-d48b-4d24-a4ca-d864557c477d', '02', 'Here we go', 'aa2@asd.com', '123', True, 2024-10-30 22:22:59.236280);
+INSERT INTO users VALUES ('c2c364b3-4180-4d19-963a-ba676a362312', '02', 'Andres', 'Andres@gmail.com', '123', True, 2024-11-19 20:14:16.308459);
+INSERT INTO users VALUES ('9b7d7691-2e1f-4401-9ef3-2c7ef512cb41', '02', 'Yuliana Rodriguez', '', '3123123', True, 2024-10-30 11:19:42.114507);
+INSERT INTO users VALUES ('dcdf0384-318e-48ec-a2fe-7f76821cc208', '02', 'aa', 'aa@aaa.com', '3123', True, 2024-11-19 21:11:01.174384);
+INSERT INTO users VALUES ('6d1b21b3-d48b-4d24-a4ca-d864557c477d', '02', 'SALUD', 'aa2@asd.com', '123', True, 2024-10-30 22:22:59.236280);
 
 CREATE TABLE admins (
 	id VARCHAR NOT NULL, 
@@ -110,11 +115,13 @@ CREATE TABLE login (
 INSERT INTO login VALUES ('admin-login-id', 'admin-user-id', 'admin', '1234', True, 2024-10-29 03:09:23.170899);
 INSERT INTO login VALUES ('student-login-id', 'student-user-id', 'student', '1234', True, 2024-10-29 03:09:23.474414);
 INSERT INTO login VALUES ('a870f6b6-5b21-4287-929c-b5130bb931df', '2d9f2718-9209-49c1-bd7b-641c05e9b73d', 'los.son', 'gwkdQnwlWF', True, 2024-10-30 11:04:11.143144);
-INSERT INTO login VALUES ('teacher-login-id', 'teacher-user-id', 'admin', '1234232323', True, 2024-10-29 03:09:23.310846);
 INSERT INTO login VALUES ('1ed3a695-07e4-4c01-89c1-3f4897bc15ec', '9b7d7691-2e1f-4401-9ef3-2c7ef512cb41', 'admin', '1234', True, 2024-10-30 11:19:42.114507);
 INSERT INTO login VALUES ('3f805adb-35c6-445b-b8d9-e451bdc3882c', '3b3a7e2f-c816-443b-b8d2-135497b80576', 'Quiles', '1234', True, 2024-10-30 11:31:38.295062);
 INSERT INTO login VALUES ('9936577c-e3e3-441c-93a6-b2a152082c95', 'b6c96410-bb2a-4efa-83bb-5b7af9e450c2', 'porque.porque', 'Ji3psZYsYE', True, 2024-10-30 11:45:30.850107);
-INSERT INTO login VALUES ('2d9c3afe-d2e3-4423-9c0a-b0f63738970b', '6d1b21b3-d48b-4d24-a4ca-d864557c477d', 'aaaa.aa2', '1234', True, 2024-10-30 22:22:59.236280);
+INSERT INTO login VALUES ('teacher-login-id', 'teacher-user-id', 'teacher', '1234', True, 2024-10-29 03:09:23.310846);
+INSERT INTO login VALUES ('8b3fd254-d2d0-4d05-87e7-59b20a23b961', 'c2c364b3-4180-4d19-963a-ba676a362312', 'andres.Andres', '74EeLOXcxj', True, 2024-11-19 20:14:16.308459);
+INSERT INTO login VALUES ('a9a22882-d2af-4d9f-990c-359e66ce4536', 'dcdf0384-318e-48ec-a2fe-7f76821cc208', 'aa.aa', 'z6tKZYo7k5', True, 2024-11-19 21:11:01.174384);
+INSERT INTO login VALUES ('2d9c3afe-d2e3-4423-9c0a-b0f63738970b', '6d1b21b3-d48b-4d24-a4ca-d864557c477d', 'aaaa.aa2', 'SALUD', True, 2024-10-30 22:22:59.236280);
 
 CREATE TABLE students (
 	id VARCHAR NOT NULL, 
@@ -132,6 +139,7 @@ CREATE TABLE students (
 INSERT INTO students VALUES ('c2b4ee68-4f76-4c52-9e77-0a81fd16abdb', 'b6c96410-bb2a-4efa-83bb-5b7af9e450c2', '0fe0448d-73f0-48c5-9167-bfb82cd9724d', 23.0, False, 2024-10-30 11:45:30.850107);
 INSERT INTO students VALUES ('student-test-id', 'student-user-id', 'bd65a7e0-b4ac-4e2b-ac89-03e360f32357', 0.0, False, 2024-10-29 03:10:49.502519);
 INSERT INTO students VALUES ('1add0543-3565-49ff-a65a-23c5974ff3f9', '6d1b21b3-d48b-4d24-a4ca-d864557c477d', '1ba86267-be95-4973-b613-c8b650b1da06', 0.0, True, 2024-10-30 22:22:59.236280);
+INSERT INTO students VALUES ('52daeecd-674c-4026-b5e0-2f60c99b85c2', 'dcdf0384-318e-48ec-a2fe-7f76821cc208', '2831d401-8b34-4a86-820b-e3ecd8023a03', 32.0, False, 2024-11-19 21:11:01.174384);
 
 CREATE TABLE teachers (
 	id VARCHAR NOT NULL, 
@@ -149,8 +157,9 @@ INSERT INTO teachers VALUES ('teacher-2', 'teacher-user-id', 123.0, '123', False
 INSERT INTO teachers VALUES ('teacher-3', 'teacher-user-id', 60000.0, 'Chemistry', False, 2024-10-29 03:36:25.410720);
 INSERT INTO teachers VALUES ('b7a140e0-3a89-4c89-926b-20aee07408e9', '2d9f2718-9209-49c1-bd7b-641c05e9b73d', 1232323.0, 'amargos', False, 2024-10-30 11:04:11.143144);
 INSERT INTO teachers VALUES ('teacher-1', 'teacher-user-id', 0.0, '', False, 2024-10-29 03:36:25.215034);
-INSERT INTO teachers VALUES ('cdaf572f-c459-4aba-8d88-f0526c4d3c81', '9b7d7691-2e1f-4401-9ef3-2c7ef512cb41', 0.0, 'asdsdasdasda', True, 2024-10-30 11:19:42.114507);
-INSERT INTO teachers VALUES ('2096f9ec-e88c-4ac0-a600-280474a6a85f', '3b3a7e2f-c816-443b-b8d2-135497b80576', 0.0, 'asdsdasdasda', True, 2024-10-30 11:31:38.295062);
+INSERT INTO teachers VALUES ('2096f9ec-e88c-4ac0-a600-280474a6a85f', '3b3a7e2f-c816-443b-b8d2-135497b80576', 0.0, 'asdsdasdasda', False, 2024-10-30 11:31:38.295062);
+INSERT INTO teachers VALUES ('cdaf572f-c459-4aba-8d88-f0526c4d3c81', '9b7d7691-2e1f-4401-9ef3-2c7ef512cb41', 0.0, 'Quimica', True, 2024-10-30 11:19:42.114507);
+INSERT INTO teachers VALUES ('19f38ec5-1f38-40bf-8873-ff2375f87f77', 'c2c364b3-4180-4d19-963a-ba676a362312', 123023.0, 'Math', False, 2024-11-19 20:14:16.308459);
 
 CREATE TABLE courses (
 	id VARCHAR NOT NULL, 
@@ -160,6 +169,7 @@ CREATE TABLE courses (
 	teacher_id VARCHAR NOT NULL, 
 	is_active BOOLEAN NOT NULL, 
 	created_at TIMESTAMP DEFAULT now() NOT NULL, 
+	name VARCHAR(255), 
 	CONSTRAINT courses_pkey PRIMARY KEY (id), 
 	CONSTRAINT courses_classroom_id_fkey FOREIGN KEY(classroom_id) REFERENCES classrooms (id) ON DELETE CASCADE, 
 	CONSTRAINT courses_degrees_id_fkey FOREIGN KEY(degrees_id) REFERENCES degrees (id) ON DELETE CASCADE, 
@@ -168,9 +178,11 @@ CREATE TABLE courses (
 )
 
 ;
-INSERT INTO courses VALUES ('course-1', 'classroom-1', 'subject-1', '3f432802-d7a7-46b3-ba42-1cd0b9d7503e', 'teacher-1', True, 2024-10-29 03:36:25.515107);
-INSERT INTO courses VALUES ('course-2', 'classroom-2', 'subject-2', '65797850-6692-48d7-9927-65e42d5cfc37', 'teacher-2', True, 2024-10-29 03:36:25.697200);
-INSERT INTO courses VALUES ('course-3', 'classroom-3', 'subject-3', 'c78b1c6d-6bfa-46e4-870c-208549170d63', 'teacher-3', True, 2024-10-29 03:36:25.776864);
+INSERT INTO courses VALUES ('9db0f265-5e78-47b9-8f55-66985320e127', 'classroom-1', 'subject-2', '597700f9-d52d-40d4-b65a-8a8a7ec15373', 'cdaf572f-c459-4aba-8d88-f0526c4d3c81', True, 2024-11-20 16:41:04.464248, 'test');
+INSERT INTO courses VALUES ('course-1', 'classroom-1', 'subject-1', '3f432802-d7a7-46b3-ba42-1cd0b9d7503e', 'teacher-1', False, 2024-10-29 03:36:25.515107, None);
+INSERT INTO courses VALUES ('course-2', 'classroom-2', 'subject-2', '65797850-6692-48d7-9927-65e42d5cfc37', 'teacher-2', False, 2024-10-29 03:36:25.697200, None);
+INSERT INTO courses VALUES ('course-3', 'classroom-3', 'subject-3', 'c78b1c6d-6bfa-46e4-870c-208549170d63', 'teacher-3', False, 2024-10-29 03:36:25.776864, None);
+INSERT INTO courses VALUES ('73998259-f13d-41a0-8854-f97075ab1f6a', 'classroom-1', 'subject-2', '1ba86267-be95-4973-b613-c8b650b1da06', 'cdaf572f-c459-4aba-8d88-f0526c4d3c81', True, 2024-11-20 16:24:17.077950, 'REDES INALAMBRICAS');
 
 CREATE TABLE schedules (
 	id VARCHAR NOT NULL, 
