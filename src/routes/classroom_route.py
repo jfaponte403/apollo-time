@@ -38,7 +38,12 @@ def get_classrooms():
 @classroom_router.post("/", status_code=status.HTTP_201_CREATED)
 def post_classroom(request: ClassroomSchema):
     try:
-        classroom_entity = ClassroomsModel(**request.dict())
+        classroom_entity = ClassroomsModel(
+            name=request.name,
+            type=request.type,
+            capacity=request.capacity
+        )
+
         result = ClassroomRepository().persist(classroom_entity)
 
         if not result:
@@ -49,3 +54,36 @@ def post_classroom(request: ClassroomSchema):
     except Exception as e:
         logger.error(f"Error creating classroom: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail="An unexpected error occurred while creating the classroom.")
+
+
+@classroom_router.put("/{id}", status_code=status.HTTP_200_OK)
+def put_classroom(request: ClassroomSchema, id: str):
+    try:
+
+        ClassroomRepository().update(
+            id=id,
+            request=request
+        )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"message": "Classroom updated successfully"}
+        )
+
+    except Exception as e:
+        raise e
+
+@classroom_router.delete("/{id}")
+def delete_classroom(id: str):
+    try:
+        ClassroomRepository().delete(
+            id=id
+        )
+
+        return JSONResponse(
+            status_code=status.HTTP_204_NO_CONTENT,
+            content={"message": "Classroom updated successfully"}
+        )
+
+    except Exception as e:
+        raise e

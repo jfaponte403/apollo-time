@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.coercions import expect
+
 from src.repository.SubjectRepository import SubjectRepository
 from src.database.DatabaseManager import get_db
 from src.models.SubjectsModel import SubjectsModel
@@ -20,6 +22,7 @@ def get_all_subjects(db: Session = Depends(get_db)):
         content={"subjects": subjects_list}
     )
 
+
 @subject.get("/{subject_id}", response_model=SubjectSchema)
 def get_subject(subject_id: str, db: Session = Depends(get_db)):
     subject = SubjectRepository().get_subject_by_id(db, subject_id)
@@ -27,11 +30,30 @@ def get_subject(subject_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Subject not found")
     return subject
 
-@subject.post("/", response_model=SubjectSchema, status_code=status.HTTP_201_CREATED)
-def create_subject(subject: SubjectSchema, db: Session = Depends(get_db)):
-    new_subject = SubjectsModel(**subject.dict())  
-    created_subject = SubjectRepository().create_subject(db, new_subject)
-    return created_subject
+
+@subject.post("/")
+def create_subject(subject_request: SubjectSchema):
+    try:
+
+        subject_entity = SubjectsModel(
+            name=subject_request.name
+        )
+
+        query = SubjectRepository().persist(subject_entity)
+
+        if query is False:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content={"message": "error while creating subject"}
+            )
+
+        return JSONResponse(
+            status_code=status.HTTP_201_CREATED,
+            content={"message": "Created subject"}
+        )
+
+    except Exception as e:
+        raise e
 
 
 @subject.put("/{subject_id}", response_model=SubjectSchema)
@@ -41,9 +63,23 @@ def update_subject(subject_id: str, updated_data: dict, db: Session = Depends(ge
         raise HTTPException(status_code=404, detail="Subject not found")
     return updated_subject
 
+
 @subject.delete("/{subject_id}", response_model=SubjectSchema)
-def delete_subject(subject_id: str, db: Session = Depends(get_db)):
-    deleted_subject = SubjectRepository().delete_subject(db, subject_id)
-    if not deleted_subject:
-        raise HTTPException(status_code=404, detail="Subject not found")
-    return deleted_subject
+def delete_subject(subject_id: str):
+    try:
+        deleted_subject = SubjectRepository().delete(subject_id)
+
+        if deleted_subject is False:
+            return JSONResponse(
+                status_code=status.HTTP_404_NOT_FOUND,
+                content={"message": "Error while deleting subject"}
+            )
+
+        return JSONResponse(
+            status_code=status.HTTP_204_NO_CONTENT,
+            content={"message": "deleted subject"}
+        )
+
+
+    except Exception as e:
+        raise e

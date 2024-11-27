@@ -1,14 +1,52 @@
 import logging
 from typing import Optional, List
+
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.future import select
 from src.database.database import engine
 from src.models.ClassroomsModel import ClassroomsModel
+from src.schemas.ClassroomSchema import ClassroomSchema
+
 
 class ClassroomRepository:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+
+    def delete(self, id: str):
+        try:
+            self.logger.info("deleting classrooms")
+            with Session(engine) as session:
+                stmt = update(ClassroomsModel).where(ClassroomsModel.id == id).values(
+                    is_active=False
+                )
+
+                session.execute(stmt)
+                session.commit()
+
+                return
+
+        except Exception as e:
+            raise e
+
+    def update(self, id: str, request: ClassroomSchema):
+        try:
+            self.logger.info("updating classrooms")
+            with Session(engine) as session:
+                stmt = update(ClassroomsModel).where(ClassroomsModel.id == id).values(
+                    name=request.name,
+                    type=request.type,
+                    capacity=request.capacity
+                )
+
+                session.execute(stmt)
+                session.commit()
+
+                return
+
+        except Exception as e:
+            raise e
 
     def find_all(self) -> Optional[List[ClassroomsModel]]:
         try:

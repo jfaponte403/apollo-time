@@ -70,7 +70,7 @@ class DatabaseManager:
 
 
 # Usage
-if __name__ == '__main__':
+if __name__ == '__main__':  
     request = 0
 
     if request == 0:
