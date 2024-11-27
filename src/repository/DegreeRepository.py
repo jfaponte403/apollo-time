@@ -31,13 +31,10 @@ class DegreeRepository:
             self.logger.info("Degree with ID %s has been soft deleted.", degree_id)
             return True
 
-        except SQLAlchemyError as e:
-            self.logger.error("Database error occurred while soft deleting the degree: %s", e)
-            return False
 
         except Exception as e:
             self.logger.error("An unexpected error occurred while soft deleting the degree: %s", e)
-            return False
+            raise e
 
     def persist(self, degree_entity: DegreeModel) -> bool:
         try:
@@ -49,11 +46,6 @@ class DegreeRepository:
 
             self.logger.info("Degree entity persisted successfully: %s", degree_entity)
             return True
-
-        except SQLAlchemyError as e:
-            self.logger.error("Database error occurred while persisting the degree: %s", e)
-            return False
-
         except Exception as e:
             self.logger.error("An unexpected error occurred while persisting the degree: %s", e)
             return False
