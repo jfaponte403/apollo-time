@@ -25,6 +25,19 @@ class SubjectRepository:
         except Exception as e:
             raise e
 
+    def find_all(self) -> Optional[list[SubjectsModel]]:
+
+        subjects = []
+
+        with Session(engine) as session:
+            result = session.query(SubjectsModel).all()
+
+            for item in result:
+                subjects.append(item.to_dict())
+
+            return subjects
+
+
     def get_all_subjects(self, db: Session) -> list[SubjectsModel]:
         return db.query(SubjectsModel).all()
 

@@ -5,6 +5,7 @@ from src.routes.classroom_route import classroom_router
 from src.routes.course_route import course
 from src.routes.degree_route import degree
 from src.routes.login_route import login
+from src.routes.schedule_route import schedule
 from src.routes.student_route import student
 from src.routes.subject_route import subject
 from src.routes.teacher_route import teacher
@@ -28,3 +29,4 @@ app.include_router(student, prefix="/student")
 app.include_router(course, prefix="/course")
 app.include_router(user, prefix="/user")
 app.include_router(classroom_router, prefix="/classroom")
+app.include_router(schedule, prefix="/schedule")
